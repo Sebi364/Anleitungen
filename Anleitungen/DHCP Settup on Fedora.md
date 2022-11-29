@@ -34,10 +34,36 @@ In den folgenden Schritten wird eine neue VM kreiert und zu unserem NAT Netzwerk
 1. Starte die VM, die du gerade gemacht hast und warte bis es bei dier ungefähr wie im Bild unten aussieht. <br>
 ![](/Dateien/Bilder/DHCP_Setup/5.png)
 2. folge diesem video um Fedora zu installieren
-![Video](https://user-images.githubusercontent.com/110155948/204562386-60c472fc-de38-4ef9-8a6f-019b3e49494b.mp4)
+[Video](https://user-images.githubusercontent.com/110155948/204562386-60c472fc-de38-4ef9-8a6f-019b3e49494b.mp4)
 ---
 
 ## DHCP Server configurieren
+0. Entferne das installations iso von der VM.
+1. Starte die VM und logge dich mit dem Username `root` und deinem paswort ein.
+2. Installiere den DHCP Server
+    >dnf install dhcp-server -y
+
+    Dieser Befehl installiert den dhcp Server (das Programm) auf deinem PC
+
+3. Füge den DHCP service zu der firewall hinzu
+    >firewall-cmd --add-service=dhcp --permanent <br>
+    
+    Dieser Befehl fügt dhcp zu der firewall hinzu, sonst würden dhcp-requests einfach blockiert werden. Der --permanent flag sorg dafür das die änderung auch nach einem neustart noch da ist.
+
+    >firewall-cmd  --reload
+
+    Dieser befehl ladet einfach die firewall regeln neu. 
+
+4. Gehe in die Directory in dem der config file ist.
+    >cd /etc/dhcp/
+
+5. Entferne die alte config datei
+    >rm dhcpd.conf
+
+6. Jetzt hasst du 2 möglichkeiten um die neue config datei zu erstellen:
+    1. Lade meinen Config herunter mit dem folgenden commando:
+    >
+
 
 
 --- 
