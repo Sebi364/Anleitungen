@@ -33,15 +33,11 @@ In den folgenden Schritten wird eine neue VM kreiert und zu unserem NAT Netzwerk
 ## OS auf Server installieren
 1. Starte die VM, die du gerade gemacht hast und warte bis es bei dier ungefähr wie im Bild unten aussieht. <br>
 ![](/Dateien/Bilder/DHCP_Setup/5.png)
-2. Drücke `Continue`
-3. Wähle `Installation Destination` und drücke dann einfach auf `Done`
-4. Weiter unten ist eine Option die "Root Account" heist. öffne diese.
-5. Schalte den Root Account ein, und gebe ein Passwort ein.
-    - Dieses Password musst du dier für später merken.
-6. Jetzt musst du nur noch den Netzwerk Adapter configurieren. gehe dazu auf `Network & Host Name`, schalte den Adapter ein und drücke auf `Configure`
+3. folge diesem video um Fedora zu installieren
+![](/Dateien/Videos/1.webm)
 ---
 
 ## DHCP Server configurieren
-TODO
+
 
 --- 
