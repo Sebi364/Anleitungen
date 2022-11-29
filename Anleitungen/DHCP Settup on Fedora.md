@@ -62,12 +62,34 @@ In den folgenden Schritten wird eine neue VM kreiert und zu unserem NAT Netzwerk
 
 6. Jetzt hasst du 2 möglichkeiten um die neue config datei zu erstellen:
     1. Lade meinen Config herunter mit dem folgenden commando:
-    >
+        >wget https://raw.githubusercontent.com/Sebi364/Anleitungen/main/clone/dhcpd.conf
+    2. Erstelle die config Datei manuell von Hand. <br>
+        Installiere den nano text edditor
+        >dnf install nano -y
 
+        öffne die config Datei und bearbeite sie        
+        >nano dhcpd.conf
 
+        als vorlage kannst du [meinen config](https://github.com/Sebi364/Anleitungen/blob/main/clone/dhcpd.conf) benutzen, oder selber recherchiern.
+
+7. Nachdem der dhcp Server configuriert ist, musst du ihn nur noch starten:
+    >systemctl enable --now dhcpd
+
+8. überprüfe das alles funktioniert:
+    >systemctl status dhcpd
+
+    Wenn du keine roten Nacrichten siest funktioniert dein DHCP Server.
 
 --- 
+## DHCP Server testen
+1. Erstelle eine neue VM mit dem zweiten iso dass du heruntergeladen hast
+2. Starte die VM
+3. Führa `AUF DEM DHCP SERVER` diesen Befehl aus:
+    >cat /var/lib/dhcp/dhclient.leases
 
+    dieser zeigt dier die aktiven leases.
+
+---
 
 
 
