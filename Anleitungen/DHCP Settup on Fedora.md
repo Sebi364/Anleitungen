@@ -34,7 +34,7 @@ In den folgenden Schritten wird eine neue VM kreiert und zu unserem NAT Netzwerk
 1. Starte die VM, die du gerade gemacht hast und warte bis es bei dier ungefähr wie im Bild unten aussieht. <br>
 ![](/Dateien/Bilder/DHCP_Setup/5.png)
 2. folge diesem video um Fedora zu installieren
-![Video](/Dateien/Videos/1.webm)
+![Video](/Dateien/Videos/1.mp4)
 ---
 
 ## DHCP Server configurieren
