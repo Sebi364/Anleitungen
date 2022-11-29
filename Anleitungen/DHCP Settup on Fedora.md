@@ -84,10 +84,10 @@ In den folgenden Schritten wird eine neue VM kreiert und zu unserem NAT Netzwerk
 ## DHCP Server testen
 1. Erstelle eine neue VM mit dem zweiten iso dass du heruntergeladen hast
 2. Starte die VM
-3. Führa `AUF DEM DHCP SERVER` diesen Befehl aus:
+3. Führe `AUF DEM DHCP SERVER` diesen Befehl aus:
     >cat /var/lib/dhcp/dhclient.leases
 
-    dieser zeigt dier die aktiven leases.
+    dieser zeigt dir die aktiven leases.
 
 ---
 
