@@ -19,7 +19,7 @@ Um einen DHCP Server zu installieren brauchen wir zuerst ein Netzwerk. Es ist m�
 ## VM für Server Configurieren
 
 In den folgenden Schritten wird eine neue VM kreiert und zu unserem NAT Netzwerk hinzugefügt.
-1. Erstelle eine neue virtuelle Maschiene Gieb ihr irgendeinen Namen und Wähle bei "ISO Images" das Server ISO dass du hoffentlich vorher heruntergeladen hast. <br>
+1. Erstelle eine neue virtuelle Maschiene gieb ihr irgendeinen Namen und Wähle bei "ISO Images" das Server ISO dass du hoffentlich vorher heruntergeladen hast. <br>
 ![](/Dateien/Bilder/DHCP_Setup/3.png)
 
 2. Klicke "Next" bis sich das Fenster Schliest.
@@ -61,7 +61,7 @@ In den folgenden Schritten wird eine neue VM kreiert und zu unserem NAT Netzwerk
     >rm dhcpd.conf
 
 6. Jetzt hasst du 2 möglichkeiten um die neue config datei zu erstellen:
-    1. Lade meinen Config herunter mit dem folgenden commando:
+    1. Lade meinen Config mit dem folgenden commando herunter:
         >wget https://raw.githubusercontent.com/Sebi364/Anleitungen/main/clone/dhcpd.conf
     2. Erstelle die config Datei manuell von Hand. <br>
         Installiere den nano text edditor
@@ -82,10 +82,10 @@ In den folgenden Schritten wird eine neue VM kreiert und zu unserem NAT Netzwerk
 
 --- 
 ## DHCP Server testen
-1. Erstelle eine neue VM mit dem zweiten iso dass du heruntergeladen hast
+1. Erstelle eine neue VM mit dem zweiten iso dass du heruntergeladen hast, vergss nicht sie ins gleiche "NAT Network" wo der DHCP Server ist rein zu tun. 
 2. Starte die VM
 3. Führe `AUF DEM DHCP SERVER` diesen Befehl aus:
-    >cat /var/lib/dhcp/dhclient.leases
+    >cat /var/lib/dhcp/dhcpd.leases
 
     dieser zeigt dir die aktiven leases.
 
