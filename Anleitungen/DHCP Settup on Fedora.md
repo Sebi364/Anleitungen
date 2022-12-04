@@ -7,10 +7,10 @@ Lade die Folgenden Dateien / Programme herunter und installier sie.
 - [Oracle VirtualBox](https://www.virtualbox.org/wiki/Downloads) (Programm + Extension Pack)
 ---
 ## VirtualBox Netzwerk Configuration
-Um einen DHCP Server zu installieren brauchen wir zuerst ein Netzwerk. Es ist möglich in VirtualBox ein "NAT Network" zu erstellen, dass fast alle eigenschaften von einem echten Netzwerk hatt.
+Um einen DHCP Server zu installieren brauchen wir zuerst ein Netzwerk. Es ist möglich in VirtualBox ein "NAT Network" zu erstellen, dass fast alle eigenschaften von einem echten Netzwerk hat.
 1. öffne VirtualBox und gehe auf "Tools" <br>
     ![](/Dateien/Bilder/DHCP_Setup/1.png)
-2. wähle "NAT Networks" und erstelle mit "Create" ein neues Netzwerk Ich empfehle bei dem "IPv4 Prefix" "192.168.1.0/24" einzugeben weil alle weiteren Configurationen in dieser Anleitung von dieser IP Range ausgehen <br>
+2. wähle "NAT Networks" und erstelle mit "Create" ein neues Netzwerk Ich empfehle bei dem "IPv4 Prefix" "192.168.1.0/24" einzugeben weil alle weiteren Konfigurationen in dieser Anleitung von dieser IP Range ausgehen <br>
     ![](/Dateien/Bilder/DHCP_Setup/2.png)
     stelle sicher das "DHCP" ausgeschaltet ist.
 
@@ -19,19 +19,19 @@ Um einen DHCP Server zu installieren brauchen wir zuerst ein Netzwerk. Es ist m�
 ## VM für Server Configurieren
 
 In den folgenden Schritten wird eine neue VM kreiert und zu unserem NAT Netzwerk hinzugefügt.
-1. Erstelle eine neue virtuelle Maschiene gieb ihr irgendeinen Namen und Wähle bei "ISO Images" das Server ISO dass du hoffentlich vorher heruntergeladen hast. <br>
+1. Erstelle eine neue VM gib ihr irgendeinen Namen und Wähle bei "ISO Images" das Server ISO dass du hoffentlich vorher heruntergeladen hast. <br>
 ![](/Dateien/Bilder/DHCP_Setup/3.png)
 
-2. Klicke "Next" bis sich das Fenster Schliest.
+2. Klicke "Next" bis sich das Fenster schliest.
 3. öffne die Einstellungen der VM und wähle den "Netzwerk" Teil<br>
     ändere "Attached to" zu "NAT Network" und wähle unter "Name" das NAT das du vorher gemacht hast.
     ![](/Dateien/Bilder/DHCP_Setup/4.png)
-4. Bestätige die änderungen indem su auf "OK" drückst.
+4. Bestätige die Änderungen indem su auf "OK" drückst.
 
 ---
 
 ## OS auf Server installieren
-1. Starte die VM, die du gerade gemacht hast und warte bis es bei dier ungefähr wie im Bild unten aussieht. <br>
+1. Starte die VM, die du gerade gemacht hast und warte bis es bei dir ungefähr wie im Bild unten aussieht. <br>
 ![](/Dateien/Bilder/DHCP_Setup/5.png)
 2. folge diesem video um Fedora zu installieren
 [Video](https://user-images.githubusercontent.com/110155948/204562386-60c472fc-de38-4ef9-8a6f-019b3e49494b.mp4)
@@ -39,7 +39,7 @@ In den folgenden Schritten wird eine neue VM kreiert und zu unserem NAT Netzwerk
 
 ## DHCP Server configurieren
 0. Entferne das installations iso von der VM.
-1. Starte die VM und logge dich mit dem Username `root` und deinem paswort ein.
+1. Starte die VM und logge dich mit dem Username `root` und deinem Passwort ein.
 2. Installiere den DHCP Server
     >dnf install dhcp-server -y
 
@@ -48,37 +48,37 @@ In den folgenden Schritten wird eine neue VM kreiert und zu unserem NAT Netzwerk
 3. Füge den DHCP service zu der firewall hinzu
     >firewall-cmd --add-service=dhcp --permanent <br>
     
-    Dieser Befehl fügt dhcp zu der firewall hinzu, sonst würden dhcp-requests einfach blockiert werden. Der --permanent flag sorg dafür das die änderung auch nach einem neustart noch da ist.
+    Dieser Befehl fügt dhcp zu der firewall hinzu, sonst würden dhcp-requests einfach blockiert werden. Der --permanent flag sorgt dafür das die Änderung auch nach einem neustart noch da ist.
 
     >firewall-cmd  --reload
 
-    Dieser befehl ladet einfach die firewall regeln neu. 
+    Dieser Befehl ladet einfach die firewall regeln neu. 
 
 4. Gehe in die Directory in dem der config file ist.
     >cd /etc/dhcp/
 
-5. Entferne die alte config datei
+5. Entferne die alte config Datei
     >rm dhcpd.conf
 
-6. Jetzt hasst du 2 möglichkeiten um die neue config datei zu erstellen:
+6. Jetzt hasst du 2 Möglichkeiten um die neue config Datei zu erstellen:
     1. Lade meinen Config mit dem folgenden commando herunter:
         >wget https://raw.githubusercontent.com/Sebi364/Anleitungen/main/clone/dhcpd.conf
     2. Erstelle die config Datei manuell von Hand. <br>
-        Installiere den nano text edditor
+        Installiere den nano text Editor
         >dnf install nano -y
 
         öffne die config Datei und bearbeite sie        
         >nano dhcpd.conf
 
-        als vorlage kannst du [meinen config](https://github.com/Sebi364/Anleitungen/blob/main/clone/dhcpd.conf) benutzen, oder selber recherchiern.
+        als vorlage kannst du [meinen config](https://github.com/Sebi364/Anleitungen/blob/main/clone/dhcpd.conf) benutzen, oder selber recherchieren.
 
-7. Nachdem der dhcp Server configuriert ist, musst du ihn nur noch starten:
+7. Nachdem der dhcp Server konfiguriert ist, musst du ihn nur noch starten:
     >systemctl enable --now dhcpd
 
 8. überprüfe das alles funktioniert:
     >systemctl status dhcpd
 
-    Wenn du keine roten Nacrichten siest funktioniert dein DHCP Server.
+    Wenn du keine roten Nachrichten siehst funktioniert dein DHCP Server.
 
 --- 
 ## DHCP Server testen
