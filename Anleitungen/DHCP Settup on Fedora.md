@@ -41,42 +41,61 @@ In den folgenden Schritten wird eine neue VM kreiert und zu unserem NAT Netzwerk
 0. Entferne das installations iso von der VM.
 1. Starte die VM und logge dich mit dem Username `root` und deinem Passwort ein.
 2. Installiere den DHCP Server
-    >dnf install dhcp-server -y
-
+    ```bash
+    dnf install dhcp-server -y
+    ```
     Dieser Befehl installiert den dhcp Server (das Programm) auf deinem PC
 
 3. Füge den DHCP service zu der firewall hinzu
-    >firewall-cmd --add-service=dhcp --permanent <br>
+    ```bash
+    firewall-cmd --add-service=dhcp --permanent <br>
+    ```
     
     Dieser Befehl fügt dhcp zu der firewall hinzu, sonst würden dhcp-requests einfach blockiert werden. Der --permanent flag sorgt dafür das die Änderung auch nach einem neustart noch da ist.
 
-    >firewall-cmd  --reload
+    ```bash
+    firewall-cmd  --reload
+    ```
 
     Dieser Befehl ladet einfach die firewall regeln neu. 
 
 4. Gehe in die Directory in dem der config file ist.
-    >cd /etc/dhcp/
+    ```bash
+    cd /etc/dhcp/
+    ```
 
 5. Entferne die alte config Datei
-    >rm dhcpd.conf
+    ```bash
+    rm dhcpd.conf
+    ```
 
 6. Jetzt hasst du 2 Möglichkeiten um die neue config Datei zu erstellen:
     1. Lade meinen Config mit dem folgenden commando herunter:
-        >wget https://raw.githubusercontent.com/Sebi364/Anleitungen/main/clone/dhcpd.conf
+        ```bash
+        wget https://raw.githubusercontent.com/Sebi364/Anleitungen/main/clone/dhcpd.conf
+        ```
     2. Erstelle die config Datei manuell von Hand. <br>
         Installiere den nano text Editor
-        >dnf install nano -y
+        ```bash
+        dnf install nano -y
+        ```
 
-        öffne die config Datei und bearbeite sie        
-        >nano dhcpd.conf
+        öffne die config Datei und bearbeite sie    
+        ```bash
+        nano dhcpd.conf
+        ```
 
-        als vorlage kannst du [meinen config](https://github.com/Sebi364/Anleitungen/blob/main/clone/dhcpd.conf) benutzen, oder selber recherchieren.
+        Als Vorlage kannst du [meinen config](https://github.com/Sebi364/Anleitungen/blob/main/clone/dhcpd.conf) benutzen, oder selber recherchieren.
 
 7. Nachdem der dhcp Server konfiguriert ist, musst du ihn nur noch starten:
-    >systemctl enable --now dhcpd
+    ```bash
+    systemctl enable --now dhcpd
+    ```
 
 8. überprüfe das alles funktioniert:
-    >systemctl status dhcpd
+    ```bash
+    systemctl status dhcpd
+    ```
 
     Wenn du keine roten Nachrichten siehst funktioniert dein DHCP Server.
 
@@ -84,8 +103,10 @@ In den folgenden Schritten wird eine neue VM kreiert und zu unserem NAT Netzwerk
 ## DHCP Server testen
 1. Erstelle eine neue VM mit dem zweiten iso dass du heruntergeladen hast, vergss nicht sie ins gleiche "NAT Network" wo der DHCP Server ist rein zu tun. 
 2. Starte die VM
-3. Führe `AUF DEM DHCP SERVER` diesen Befehl aus:
-    >cat /var/lib/dhcp/dhcpd.leases
+3. Führe **AUF DEM DHCP SERVER** diesen Befehl aus:
+    ```bash
+    cat /var/lib/dhcp/dhcpd.leases
+    ```
 
     dieser zeigt dir die aktiven leases.
 
