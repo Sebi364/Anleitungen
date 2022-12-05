@@ -50,7 +50,6 @@ In den folgenden Schritten wird eine neue VM kreiert und zu unserem NAT Netzwerk
     ```bash
     firewall-cmd --add-service=dhcp --permanent
     ```
-    <br>
     
     Dieser Befehl fügt dhcp zu der firewall hinzu, sonst würden dhcp-requests einfach blockiert werden. Der --permanent flag sorgt dafür das die Änderung auch nach einem neustart noch da ist.
 
