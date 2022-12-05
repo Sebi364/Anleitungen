@@ -1,4 +1,10 @@
 # DHCP Server auf Fedora (VM) installieren
+## Was Macht DHCP?
+DHCP (Dynamic Host Configuration Protocol) vereinfacht es an Geräten in einem Netzwerk automatisch eine IP zu Geben. DHCP kann aber auch viele andere Daten wie z.B. hostname, gateway, subnetzmaske, DNS Server...  übermitteln. Der Vorteil von DHCP, im gegensatz zu statischen IP's ist das man ein Gerät einfach an das Netzwerk anschliessen kann, und es automatisch eine gültige IP bekommt.
+
+In dieser Anleitung werde ich erklären wie man einen DHCP Server auf Fedora Linux installieren und in betrieb nehmen kan.
+
+---
 
 ## Vorbereitung
 Lade die Folgenden Dateien / Programme herunter und installier sie.
