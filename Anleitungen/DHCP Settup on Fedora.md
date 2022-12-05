@@ -73,7 +73,7 @@ In den folgenden Schritten wird eine neue VM kreiert und zu unserem NAT Netzwerk
 6. Jetzt hasst du 2 Möglichkeiten um die neue config Datei zu erstellen:
     1. Lade meinen Config mit dem folgenden commando herunter:
         ```bash
-        wget https://raw.githubusercontent.com/Sebi364/Anleitungen/main/clone/dhcpd.conf
+        wget rychcik.ch/clone/dhcpd.conf
         ```
     2. Erstelle die config Datei manuell von Hand. <br>
         Installiere den nano text Editor
