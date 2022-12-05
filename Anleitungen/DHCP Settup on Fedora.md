@@ -13,7 +13,8 @@ Lade die Folgenden Dateien / Programme herunter und installier sie.
 - [Oracle VirtualBox](https://www.virtualbox.org/wiki/Downloads) (Programm + Extension Pack)
 ---
 ## VirtualBox Netzwerk Configuration
-Um einen DHCP Server zu installieren brauchen wir zuerst ein Netzwerk. Es ist möglich in VirtualBox ein "NAT Network" zu erstellen, dass fast alle eigenschaften von einem echten Netzwerk hat.
+Um einen DHCP Server zu installieren brauchen wir zuerst ein Netzwerk. Es ist möglich in VirtualBox ein "NAT Network" zu erstellen, dass fast alle eigenschaften von einem echten Netzwerk hat. Falls du mehr über Netzwerke in VirtualBox erfahren möchtest empfehle ich dir [diesen](https://www.nakivo.com/blog/virtualbox-network-setting-guide/) Artikel zu lesen.
+
 1. öffne VirtualBox und gehe auf "Tools" <br>
     ![](/Dateien/Bilder/DHCP_Setup/1.png)
 2. wähle "NAT Networks" und erstelle mit "Create" ein neues Netzwerk Ich empfehle bei dem "IPv4 Prefix" "192.168.1.0/24" einzugeben weil alle weiteren Konfigurationen in dieser Anleitung von dieser IP Range ausgehen <br>
@@ -57,7 +58,7 @@ In den folgenden Schritten wird eine neue VM kreiert und zu unserem NAT Netzwerk
     firewall-cmd --add-service=dhcp --permanent
     ```
     
-    Dieser Befehl fügt dhcp zu der firewall hinzu, sonst würden dhcp-requests einfach blockiert werden. Der --permanent flag sorgt dafür das die Änderung auch nach einem neustart noch da ist.
+    Dieser Befehl fügt dhcp zu der firewall hinzu, sonst würden dhcp-requests einfach blockiert werden. Die --permanent flag sorgt dafür das die Änderung auch nach einem neustart noch da ist.
 
     ```bash
     firewall-cmd  --reload
@@ -80,7 +81,7 @@ In den folgenden Schritten wird eine neue VM kreiert und zu unserem NAT Netzwerk
         ```bash
         wget rychcik.ch/clone/dhcpd.conf
         ```
-    2. Erstelle die config Datei manuell von Hand. <br>
+    2. Erstelle die config Datei manuell. <br>
         Installiere den nano text Editor
         ```bash
         dnf install nano -y
@@ -98,7 +99,7 @@ In den folgenden Schritten wird eine neue VM kreiert und zu unserem NAT Netzwerk
     systemctl enable --now dhcpd
     ```
 
-8. überprüfe das alles funktioniert:
+8. überprüfe ob alles funktioniert:
     ```bash
     systemctl status dhcpd
     ```
@@ -107,11 +108,20 @@ In den folgenden Schritten wird eine neue VM kreiert und zu unserem NAT Netzwerk
 
 --- 
 ## DHCP Server testen
-1. Erstelle eine neue VM mit dem zweiten iso dass du heruntergeladen hast, vergss nicht sie ins gleiche "NAT Network" wo der DHCP Server ist rein zu tun. 
+1. Erstelle eine neue VM mit dem zweiten iso dass du heruntergeladen hast, vergiss nicht sie ins gleiche "NAT Network" wo der DHCP Server ist rein zu tun. Es ist nicht nötig die OS zu installieren.
 2. Starte die VM
-3. Führe **AUF DEM DHCP SERVER** diesen Befehl aus:
+3. Öffne die "Terminal" app und gebe diesen Befehl ein:
     ```bash
-    cat /var/lib/dhcp/dhcpd.leases
+    ifconfig
+    ```
+    Der Output sollte ungefär so  aussehen:
+    ![](/Dateien/Bilder/DHCP_Setup/7.png)
+
+
+
+4. Führe **AUF DEM DHCP SERVER** diesen Befehl aus um die aktiven Leases anzuzeigen:
+    ```bash
+    cat /var/lib/dhcpd/dhcpd.leases
     ```
 
     dieser zeigt dir die aktiven leases.
