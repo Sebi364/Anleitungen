@@ -124,8 +124,6 @@ In den folgenden Schritten wird eine neue VM kreiert und zu unserem NAT Netzwerk
     cat /var/lib/dhcpd/dhcpd.leases
     ```
 
-    dieser zeigt dir die aktiven leases.
-
 ---
 
 
