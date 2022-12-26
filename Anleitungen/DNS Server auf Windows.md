@@ -43,21 +43,21 @@
 ---
 ## DNS Server installieren
 1. Wähle auf dem "Dashboard" unter "Manage" die Option "Add Roles and Features".
-	![](Bilder/DNS_Installieren/1.png)
+	![](/Dateien/Bilder/DNS_Windows/1.png)
 2. Drücke auf "Next"
-	![](Bilder/DNS_Installieren/4.png)
+	![](/Dateien/Bilder/DNS_Windows/4.png)
 3. Wähle die Option "Role-based...." weil der DHCP Server auf dem lokalen server installiert werden soll und drücke next
-	![](Bilder/DNS_Installieren/5.png)
+	![](/Dateien/Bilder/DNS_Windows/5.png)
 4. Wähle deinen Server aus und drücke "Next".
-	![](Bilder/DNS_Installieren/6.png)
+	![](/Dateien/Bilder/DNS_Windows/6.png)
 5. Wähle die Option für den DHCP Server und drücke "Next"
-	![](Bilder/DNS_Installieren/7.png)
+	![](/Dateien/Bilder/DNS_Windows/7.png)
 6. Drücke einfach "Next"
-	![](Bilder/DNS_Installieren/8.png)
+	![](/Dateien/Bilder/DNS_Windows/8.png)
 7. "Next"
-	![](Bilder/DNS_Installieren/9.png)
+	![](/Dateien/Bilder/DNS_Windows/9.png)
 8. Wähle die obere Option, sie startet den Server automatisch neu falls es nötig ist. Drücke auf "Instal"
-	![](Bilder/DNS_Installieren/10.png)
+	![](/Dateien/Bilder/DNS_Windows/10.png)
 ---
 ## DNS Server konfigurieren
 1. Gehe unter "Tools" auf "DNS" um den DNS Manager zu öffnen.
