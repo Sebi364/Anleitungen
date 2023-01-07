@@ -16,11 +16,11 @@
     ```bash
     listen-on port 53 { 127.0.0.1; 192.168.1.10; };
     ```
-4. Füge zu der Linie `listen-on port 53 { localhost; };` die IP Range von deinem Netzwerk hinzu.
+5. Füge zu der Linie `listen-on port 53 { localhost; };` die IP Range von deinem Netzwerk hinzu.
     ```bash
     allow-query  { localhost; 192.168.1.0/24; };
     ```
-5. füge direkt über dieser: `include "/etc/named.rfc1912.zones"` linie den folgenden Text hinzu: <br>
+6. füge direkt über dieser: `include "/etc/named.rfc1912.zones"` linie den folgenden Text hinzu: <br>
     ```conf
     zone "mydomain.local" IN {
         type master;
@@ -35,11 +35,11 @@
     };
     ```
 
-6. Öffne die Datei mit der forward lookup zone.
+7. Öffne die Datei mit der forward lookup zone.
     ```bash
     sudo nano /var/named/forward.mydomain.local
     ```
-7. füge den folgenden Text hinzu:
+8. füge den folgenden Text hinzu:
     ```conf
     $TTL 86400
     @   IN  SOA     server.mydomain.local. root.mydomain.local. (
@@ -49,18 +49,18 @@
             604800      ;Expire
             86400       ;Minimum TTL
     )
-    @	IN  NS          server.mydomain.local.
-    @	IN  A           192.168.1.10
-    server          IN  A   192.168.1.10
-    client          IN  A   192.168.1.5
+    @	    IN  NS  server.mydomain.local.
+    @	    IN  A   192.168.1.10
+    server  IN  A   192.168.1.10
+    client  IN  A   192.168.1.5
     ```
 
 
-8. Öffne die Datei mit der reverse lookup zone.
+9. Öffne die Datei mit der reverse lookup zone.
     ```bash
     sudo nano /var/named/reverse.mydomain.local
     ```
-9. füge den folgenden Text hinzu
+10. füge den folgenden Text hinzu
     ```conf
     $TTL 86400
     @   IN  SOA     server.mydomain.local. root.mydomain.local. (
@@ -70,47 +70,89 @@
             604800      ;Expire
             86400       ;Minimum TTL
     )
-    @	IN  NS          server.mydomain.local.
-    @	IN  PTR         mydomain.local.
-    server           IN  A   192.168.1.10
-    client          IN  A   192.168.1.5
-    10	IN  PTR         server.mydomain.local.
-    5	IN  PTR         client.mydomain.local.
+    @	    IN  NS   server.mydomain.local.
+    @	    IN  PTR  mydomain.local.
+    server  IN  A    192.168.1.10
+    client  IN  A    192.168.1.5
+    10	    IN  PTR  server.mydomain.local.
+    5	    IN  PTR  client.mydomain.local.
 
     ```
 
-10. bearbeite die Berechtigungen der Dateien:
+11. bearbeite die Berechtigungen der Dateien:
     ```bash
     sudo chgrp named -R /var/named
     sudo chown -v root:named /etc/named.conf
     sudo restorecon -rv /var/named
     sudo restorecon /etc/named.conf
     ```
-11. Konfiguriere die firewall
+12. Konfiguriere die firewall
     ```bash
     sudo firewall-cmd --add-service=dns --perm
     sudo firewall-cmd --reload
     ```
+13. Falls du eine Linux distribution verwendest die systemd benutzt musst du systemd-resolved ausschalten, sonst wird er den port 53 besetzen.
+    ```
+    systemctl disable --now systemd-resolved
+    systemctl restart NetworkManager
+    ```
+14. Starte den DNS Service
+    ```
+    systemctl enable --now named
+    ```
+
 ## DNS Server Testen
 Der dns Server kann mit nslookup getested werden <br>
 Domain zu IP: <br>
 ```bash
 nslookup server.mydomain.local
+nslookup client.mydomain.local
 ```
 IP zu Domain
 ```bash
 nslookup 192.168.1.5
+nslookup 192.168.1.10
 ```
 
-## DNS Cache mit Wireshark testen
+## (Bonus) DNS Cache mit Wireshark testen
 wen man eine domain auflöst wird die IP adresse auf dem DNS Server im cache gespeichert. Dass kann man mithilfe von Wireshark beobachten.
-1. Um wireshark zu benutzen muss man auf dem Server einen Desktop, Display Manager und Wireshark installieren.
+1. Um wireshark zu benutzen muss man auf dem Server ein Desktop Enviroment , Display Manager und Wireshark installieren.
     ```
-    sudo dnf install gdm wireshark open-vm-tools open-vm-tools-desktop gnome-terminal -y
+    sudo dnf install gdm wireshark gnome-terminal -y
     ```
+
 2. Starte den display manager damit du dich in den desktop einlogen kannst.
     ```
     systemctl start gdm
     ```
 3. Melde dich mit dem Benutzername "root" und deinem Passwort an.
-4. Öffne Wireshark
+
+4. füge zu der config Datei vom DNS Server die folgende Linie dazu:
+    ```
+    max-cache-ttl 30;
+    ```
+    diese Option setzt die zeit, wie lange der DNS Server eine IP im Cache behaltet auf 30 Sekunden.
+
+5. Starte den DNS Server neu:
+    ```
+    systemctl restart named
+    ```
+
+6. Öffne Wireshark
+
+7. Normalerweise wäre es praktisch nicht möglich den dns vorgang zu beobachten weil wireshark jedes einzelne packet abfängt, daher brauchen wir einen Filter. <br><br> Gebe auf der oberen leiste mit dem text "Apply a Display Filter" den Folgenden Text ein
+    ```
+    dns.qry.name contains "google.com"
+    ```
+    Dieser Filter holt sorgt dafür das nur die Packete die uns interesieren angezeigt werden. Weitere DNS Wireshark Filter findest du [hier](https://www.wireshark.org/docs/dfref/d/dns.html)
+8. Starte den capture und mache einen dns request für google.com
+    ![](/Dateien/Bilder/DNS_Fedora/1.png)
+    In Wireshark wirst du sehen wie der DNS Server die Domain auflöst.
+
+9. Starte einen weiteren dns request für google.com
+    ![](/Dateien/Bilder/DNS_Fedora/2.png)
+    dieses mal sind es deutlich weniger Pakete weil der dns server die IP aus dem Cache bezieht.
+
+10. Warte eine halbe Minute und starte einen weiteren dns Request für google.com.
+    ![](/Dateien/Bilder/DNS_Fedora/3.png)
+    Jetzt löst der dns server die IP wieder auf weil die TTL abgelaufen ist.
