@@ -1,14 +1,16 @@
 # DNS auf Fedora installieren und konfigurieren
 ## Installation & Konfiguration
+Ein Teil von dieser Doku basiert auf [dieser](https://fedoramagazine.org/how-to-setup-a-dns-server-with-bind/) Anleitung von [Curt Warfield](https://fedoramagazine.org/author/rcurtiswarfield/).
+
 1. Installiere die nötigen Pakete
     ```bash
     sudo dnf install bind bind-utils -y
     ```
-2. Installiere den nano Text editor
+2. Installiere den nano Text editor (optional)
     ```bash
     sudo dnf install nano -y
     ```
-3. Öffne die die config Datei vom dns Server
+3. Öffne die Config-Datei vom dns Server
     ```bash
     sudo nano /etc/named.conf
     ```
@@ -102,21 +104,22 @@
     ```
 
 ## DNS Server Testen
-Der dns Server kann mit nslookup getested werden <br>
+Der dns Server kann mit dig getestet werden <br>
 Domain zu IP: <br>
 ```bash
-nslookup server.mydomain.local
-nslookup client.mydomain.local
+dig @192.168.1.10 server.mydomain.local
+dig @192.168.1.10 client.mydomain.local
 ```
 IP zu Domain
 ```bash
-nslookup 192.168.1.5
-nslookup 192.168.1.10
+dig @192.168.1.10 -x 192.168.1.5
+dig @192.168.1.10 -x 192.168.1.10
 ```
 
-## (Bonus) DNS Cache mit Wireshark testen
-wen man eine domain auflöst wird die IP adresse auf dem DNS Server im cache gespeichert. Dass kann man mithilfe von Wireshark beobachten.
-1. Um wireshark zu benutzen muss man auf dem Server ein Desktop Enviroment , Display Manager und Wireshark installieren.
+## (Bonus) DNS Betrieb mit Wireshark untersuchen
+wen man eine domain auflöst wird die IP Adresse auf dem DNS Server im cache gespeichert. Dass kann man mithilfe von Wireshark beobachten.
+
+1. Um Wireshark zu benutzen muss man auf dem Server ein Desktop Enviroment , Display Manager und Wireshark installieren.
     ```
     sudo dnf install gdm wireshark gnome-terminal -y
     ```
@@ -140,19 +143,20 @@ wen man eine domain auflöst wird die IP adresse auf dem DNS Server im cache ges
 
 6. Öffne Wireshark
 
-7. Normalerweise wäre es praktisch nicht möglich den dns vorgang zu beobachten weil wireshark jedes einzelne packet abfängt, daher brauchen wir einen Filter. <br><br> Gebe auf der oberen leiste mit dem text "Apply a Display Filter" den Folgenden Text ein
+7. Normalerweise wäre es praktisch nicht möglich den dns vorgang zu beobachten weil Wireshark jedes einzelne packet abfängt, daher brauchen wir einen Filter. <br><br> Gebe auf der oberen leiste mit dem text "Apply a Display Filter" den Folgenden Text ein
     ```
     dns.qry.name contains "google.com"
     ```
-    Dieser Filter holt sorgt dafür das nur die Packete die uns interesieren angezeigt werden. Weitere DNS Wireshark Filter findest du [hier](https://www.wireshark.org/docs/dfref/d/dns.html)
-8. Starte den capture und mache einen dns request für google.com
+    Dieser Filter sorgt dafür das nur die Packete die uns interesieren angezeigt werden. Weitere DNS Wireshark Filter findest du [hier](https://www.wireshark.org/docs/dfref/d/dns.html).
+
+8. Starte den capture und mache einen dns request für google.com <br>
     ![](/Dateien/Bilder/DNS_Fedora/1.png)
     In Wireshark wirst du sehen wie der DNS Server die Domain auflöst.
 
-9. Starte einen weiteren dns request für google.com
+9. Starte einen weiteren dns request für google.com <br>
     ![](/Dateien/Bilder/DNS_Fedora/2.png)
     dieses mal sind es deutlich weniger Pakete weil der dns server die IP aus dem Cache bezieht.
 
-10. Warte eine halbe Minute und starte einen weiteren dns Request für google.com.
+10. Warte eine halbe Minute und starte einen weiteren dns Request für google.com. <br>
     ![](/Dateien/Bilder/DNS_Fedora/3.png)
     Jetzt löst der dns server die IP wieder auf weil die TTL abgelaufen ist.

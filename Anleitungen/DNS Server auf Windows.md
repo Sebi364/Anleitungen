@@ -39,41 +39,39 @@
 	![](/Dateien/Bilder/DNS_Windows/14.png)
 8. Wen alle diese schritte erfolgreich erledigt wurden wird sich der Server installieren.
 ---
-## Statische IP auf Windows Setzen
----
 ## DNS Server installieren
 1. Wähle auf dem "Dashboard" unter "Manage" die Option "Add Roles and Features".
-	![](/Dateien/Bilder/DNS_Windows/1.png)
+	![](/Dateien/Bilder/DNS_Windows/15.png)
 2. Drücke auf "Next"
-	![](/Dateien/Bilder/DNS_Windows/4.png)
-3. Wähle die Option "Role-based...." weil der DHCP Server auf dem lokalen server installiert werden soll und drücke next
-	![](/Dateien/Bilder/DNS_Windows/5.png)
+	![](/Dateien/Bilder/DNS_Windows/16.png)
+3. Wähle die Option "Role-based...." weil der DNS Server auf dem lokalen server installiert werden soll und drücke next
+	![](/Dateien/Bilder/DNS_Windows/17.png)
 4. Wähle deinen Server aus und drücke "Next".
-	![](/Dateien/Bilder/DNS_Windows/6.png)
-5. Wähle die Option für den DHCP Server und drücke "Next"
-	![](/Dateien/Bilder/DNS_Windows/7.png)
+	![](/Dateien/Bilder/DNS_Windows/18.png)
+5. Wähle die Option für den DNS Server und drücke "Next"
+	![](/Dateien/Bilder/DNS_Windows/19.png)
 6. Drücke einfach "Next"
-	![](/Dateien/Bilder/DNS_Windows/8.png)
+	![](/Dateien/Bilder/DNS_Windows/20.png)
 7. "Next"
-	![](/Dateien/Bilder/DNS_Windows/9.png)
+	![](/Dateien/Bilder/DNS_Windows/21.png)
 8. Wähle die obere Option, sie startet den Server automatisch neu falls es nötig ist. Drücke auf "Instal"
-	![](/Dateien/Bilder/DNS_Windows/10.png)
+	![](/Dateien/Bilder/DNS_Windows/22.png)
 ---
 ## DNS Server konfigurieren
 1. Gehe unter "Tools" auf "DNS" um den DNS Manager zu öffnen.
-	![](/Dateien/Bilder/DNS_Windows/17.png)
+	![](/Dateien/Bilder/DNS_Windows/23.png)
 ### DNS Forward lookup Zone
 1. Drücke mit der Rechten Maustaste auf die "Forward Lookup Zone" und wähle die Option "New Zone..."
-	![](/Dateien/Bilder/DNS_Windows/18.png)
+	![](/Dateien/Bilder/DNS_Windows/24.png)
 3. Wähle im "New Zone Wizard" die option "Primary Zone"
-	![](/Dateien/Bilder/DNS_Windows/19.png)
+	![](/Dateien/Bilder/DNS_Windows/25.png)
 4. Gebe deine Domain ein und drücke "Next"
-	![](/Dateien/Bilder/DNS_Windows/20.png)
+	![](/Dateien/Bilder/DNS_Windows/26.png)
 5. Drücke "Next", "Next" und "Finish"
 6. Füge einen neuen A record hinzu
-	![](/Dateien/Bilder/DNS_Windows/21.png)
+	![](/Dateien/Bilder/DNS_Windows/27.png)
 7. Gebe deine Daten ein
-	![](/Dateien/Bilder/DNS_Windows/22.png)
+	![](/Dateien/Bilder/DNS_Windows/28.png)
 ---
 ### DNS Reverse lookup Zone
 1. füge eine neue "Reverse Lookup Zone" hinzu.
@@ -81,5 +79,5 @@
 3. "Next"
 4. Network ID = deine Network ID
 5. "Next","Next","Next","Finish"
-6.  [Video](/Dateien/Videos/DNS_Windows/add_reverse_zone.webm)
+6.  [Video](/Dateien/Videos/add_reverse_zone.webm)
 ---
