@@ -1,4 +1,5 @@
-# DNS auf Fedora installieren
+# DNS auf Fedora installieren und konfigurieren
+## Installation & Konfiguration
 1. Installiere die nötigen Pakete
     ```bash
     sudo dnf install bind bind-utils -y
@@ -90,3 +91,26 @@
     sudo firewall-cmd --add-service=dns --perm
     sudo firewall-cmd --reload
     ```
+## DNS Server Testen
+Der dns Server kann mit nslookup getested werden <br>
+Domain zu IP: <br>
+```bash
+nslookup server.mydomain.local
+```
+IP zu Domain
+```bash
+nslookup 192.168.1.5
+```
+
+## DNS Cache mit Wireshark testen
+wen man eine domain auflöst wird die IP adresse auf dem DNS Server im cache gespeichert. Dass kann man mithilfe von Wireshark beobachten.
+1. Um wireshark zu benutzen muss man auf dem Server einen Desktop, Display Manager und Wireshark installieren.
+    ```
+    sudo dnf install gdm wireshark open-vm-tools open-vm-tools-desktop gnome-terminal -y
+    ```
+2. Starte den display manager damit du dich in den desktop einlogen kannst.
+    ```
+    systemctl start gdm
+    ```
+3. Melde dich mit dem Benutzername "root" und deinem Passwort an.
+4. Öffne Wireshark
