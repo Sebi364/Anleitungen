@@ -96,6 +96,7 @@ Ein Teil von dieser Doku basiert auf [dieser](https://fedoramagazine.org/how-to-
 13. Falls du eine Linux distribution verwendest die systemd benutzt musst du systemd-resolved ausschalten, sonst wird er den port 53 besetzen.
     ```
     systemctl disable --now systemd-resolved
+    rm /etc/resolv.conf
     systemctl restart NetworkManager
     ```
 14. Starte den DNS Service

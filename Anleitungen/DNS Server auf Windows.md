@@ -1,83 +1,111 @@
-# Anleitung zum installieren vom DNS Server
----
-## Virtual Box NAT Network erstellen
-1. Öffne Virtual-box
-2. Gehe auf "Tools"
-	![](/Dateien/Bilder/DNS_Windows/02.png)
-3. Wähle "NAT Network" und Erstelle ein neues Netzwerk
-	![](/Dateien/Bilder/DNS_Windows/03.png)
-4. Passe die Einstellungen vom Netzwert an.
-	- Ändere den Namen 
-	- Ändere den IPv4 Prefix
-	- Schalte den DHCP Server aus
-	![](/Dateien/Bilder/DNS_Windows/04.png)
----
-## Windows Server VM erstellen
-1. Erstelle eine neue VM
-	![](/Dateien/Bilder/DNS_Windows/5.png)
-2. Gebe der VM einen sinnvollen Namen und Wähle das ISO Image das du Heruntergeladen hast. Wähle auch die Option "Skip unattended installation"
-	![](/Dateien/Bilder/DNS_Windows/6.png)
-3. Gebe der VM eine sinnvolle anzahl an Ressourcen.
-	![](/Dateien/Bilder/DNS_Windows/7.png)
-4. Drücke "Next", "Next" und "Finish"
----
-## Windows Server installieren
-1. Starte die VM die du vorher erstellt hast.
-	![](/Dateien/Bilder/DNS_Windows/8.png)
-2. Wähle dein bevorzugtes Layout und drücke "Next".
-	![](/Dateien/Bilder/DNS_Windows/9.png)
-3. Drücke "Install now".
-4. Gebe deinen Licence Key ein und drücke "Next".
-	![](/Dateien/Bilder/DNS_Windows/10.png)
-5. Wähle windows Server 2019 Standard (Desktop Experience) und drücke "Next".
-	![](/Dateien/Bilder/DNS_Windows/11.png)
-5. Drücke auf das Kästchen und dann "Next"
-	![](/Dateien/Bilder/DNS_Windows/12.png)
-6. Wähle die untere Option
-	![](/Dateien/Bilder/DNS_Windows/13.png)
-7. Drücke auf "Next"
-	![](/Dateien/Bilder/DNS_Windows/14.png)
-8. Wen alle diese schritte erfolgreich erledigt wurden wird sich der Server installieren.
----
-## DNS Server installieren
-1. Wähle auf dem "Dashboard" unter "Manage" die Option "Add Roles and Features".
-	![](/Dateien/Bilder/DNS_Windows/15.png)
-2. Drücke auf "Next"
-	![](/Dateien/Bilder/DNS_Windows/16.png)
-3. Wähle die Option "Role-based...." weil der DNS Server auf dem lokalen server installiert werden soll und drücke next
-	![](/Dateien/Bilder/DNS_Windows/17.png)
-4. Wähle deinen Server aus und drücke "Next".
-	![](/Dateien/Bilder/DNS_Windows/18.png)
-5. Wähle die Option für den DNS Server und drücke "Next"
-	![](/Dateien/Bilder/DNS_Windows/19.png)
-6. Drücke einfach "Next"
-	![](/Dateien/Bilder/DNS_Windows/20.png)
-7. "Next"
-	![](/Dateien/Bilder/DNS_Windows/21.png)
-8. Wähle die obere Option, sie startet den Server automatisch neu falls es nötig ist. Drücke auf "Instal"
-	![](/Dateien/Bilder/DNS_Windows/22.png)
----
-## DNS Server konfigurieren
-1. Gehe unter "Tools" auf "DNS" um den DNS Manager zu öffnen.
-	![](/Dateien/Bilder/DNS_Windows/23.png)
-### DNS Forward lookup Zone
-1. Drücke mit der Rechten Maustaste auf die "Forward Lookup Zone" und wähle die Option "New Zone..."
-	![](/Dateien/Bilder/DNS_Windows/24.png)
-3. Wähle im "New Zone Wizard" die option "Primary Zone"
-	![](/Dateien/Bilder/DNS_Windows/25.png)
-4. Gebe deine Domain ein und drücke "Next"
-	![](/Dateien/Bilder/DNS_Windows/26.png)
-5. Drücke "Next", "Next" und "Finish"
-6. Füge einen neuen A record hinzu
-	![](/Dateien/Bilder/DNS_Windows/27.png)
-7. Gebe deine Daten ein
-	![](/Dateien/Bilder/DNS_Windows/28.png)
----
-### DNS Reverse lookup Zone
-1. füge eine neue "Reverse Lookup Zone" hinzu.
-2. "Zone Type" = Primary Zone
-3. "Next"
-4. Network ID = deine Network ID
-5. "Next","Next","Next","Finish"
-6.  [Video](/Dateien/Videos/add_reverse_zone.webm)
----
+# DNS Server auf Windows Installieren
+Diese Anleitung nimmt an, dass du bereits eine VM mit Windows Server 2019 und einer festen IP (192.168.1.10 bei mir) hast.
+## DNS Installieren
+1. Starte die Server VM und Melde dich als Administrator an.
+2. Drücke auf `Manage` > `Add Roles and Features`
+	![img](/Dateien/Bilder/DNS_Windows/Installation/1.png)
+
+3. Wähle die Option `Skip this page bei default` und drücke `Next`
+	![img](/Dateien/Bilder/DNS_Windows/Installation/2.png)
+
+4. Wähle die Option `Role-based or feature-based installation` und drücke `Next`
+	![img](/Dateien/Bilder/DNS_Windows/Installation/3.png)
+
+5. Drücke einfach next (ausser du möchtest eine spezielle installation durchfüren)
+	![img](/Dateien/Bilder/DNS_Windows/Installation/4.png)
+
+6. Wähle die Option `DNS Server` und drücke `Next`
+	![img](/Dateien/Bilder/DNS_Windows/Installation/5.png)
+
+7. Bestätige deine Auswahl indem du `Add Features` drückst.
+	![img](/Dateien/Bilder/DNS_Windows/Installation/6.png)
+
+8. Drücke einfach `Next`
+	![img](/Dateien/Bilder/DNS_Windows/Installation/7.png)
+
+9. Drücke einfach `Next`
+	![img](/Dateien/Bilder/DNS_Windows/Installation/8.png)
+
+10. Drücke einfach `Next`
+	![img](/Dateien/Bilder/DNS_Windows/Installation/9.png)
+
+11. Wähle die Option `Restart the destination server automatically if required` und drücke `Install`
+	![img](/Dateien/Bilder/DNS_Windows/Installation/10.png)
+
+## DNS Konfigurieren
+### Forward lookup zone hinzufügen
+1. Wähle unter `Tools` die Option `DNS`
+	![img](/Dateien/Bilder/DNS_Windows/Konfiguration/add_zone/1.png)
+
+2. Drücke mit der Rechten Maustaste auf den Server und Füge eine neue Zone hinzu.
+	![img](/Dateien/Bilder/DNS_Windows/Konfiguration/add_zone/2.png)
+
+3. Drücke `Next`
+	![img](/Dateien/Bilder/DNS_Windows/Konfiguration/add_zone/3.png)
+
+4. Wähle die Option `Primary Zone` und drücke `Next`
+	![img](/Dateien/Bilder/DNS_Windows/Konfiguration/add_zone/4.png)
+
+5. Erstelle eine `Forward lookup zone`
+	![img](/Dateien/Bilder/DNS_Windows/Konfiguration/add_zone/5.png)
+
+6. Gebe deine Domäne an.
+	![img](/Dateien/Bilder/DNS_Windows/Konfiguration/add_zone/6.png)
+
+7. Vergewissere dich das eine neue Datei erstellt wird und drücke `Next`
+	![img](/Dateien/Bilder/DNS_Windows/Konfiguration/add_zone/7.png)
+
+8. Schalte dynamische updates aus und drücke `Next` 
+	![img](/Dateien/Bilder/DNS_Windows/Konfiguration/add_zone/8.png)
+
+9. Beende die Konfiguration mit `Finish`
+	![img](/Dateien/Bilder/DNS_Windows/Konfiguration/add_zone/9.png)
+### Reverse lookup zone hinzufügen
+1. Füge eine neue `Reverse Lookup Zone` hinzu
+	![img](/Dateien/Bilder/DNS_Windows/Konfiguration/add_zone_reverse/1.png)
+
+2. Drücke `Next`
+	![img](/Dateien/Bilder/DNS_Windows/Konfiguration/add_zone_reverse/2.png)
+
+3. Wähle die Option für eine `Primary Zone` und drücke `Next`
+	![img](/Dateien/Bilder/DNS_Windows/Konfiguration/add_zone_reverse/3.png)
+
+4. Wähle die Option für eine `IPvç reverse Lookup Zone` (Ausser du benutzt IPv6)
+	![img](/Dateien/Bilder/DNS_Windows/Konfiguration/add_zone_reverse/4.png)
+
+5. Gebe deine Network ID ein und drücke `Next`
+	![img](/Dateien/Bilder/DNS_Windows/Konfiguration/add_zone_reverse/5.png)
+
+6. Wähle die Erste Option und drücke `Next`
+	![img](/Dateien/Bilder/DNS_Windows/Konfiguration/add_zone_reverse/6.png)
+
+7. Schalte Dynamische Updates aus und drücke `Next`
+	![img](/Dateien/Bilder/DNS_Windows/Konfiguration/add_zone_reverse/7.png)
+
+8. Beende die Konfiguration indem du`Finish` drückst.
+	![img](/Dateien/Bilder/DNS_Windows/Konfiguration/add_zone_reverse/8.png)
+
+### Domäne hinzufügen
+1. Füge zu deiner Zone einen neuen A Record hinzu
+	![img](/Dateien/Bilder/DNS_Windows/Testen/1.png)
+
+2. Füge die Daten von deinem Computer ein.
+	![img](/Dateien/Bilder/DNS_Windows/Testen/2.png)
+	- Im obersten Feld kommt der name rein.
+		- `server` == `server.mydomain.local`
+	- Das oberste Feld kann auch leer gelassen werden.
+		- `` == `mydomain.local`
+	- Wähle auch die unterste Checkbox, diese sorgt dafür das auch ein passender PTR Record (fü den reverse lookup) hinzugefügt wird.
+
+## DNS Testen
+Um den DNS Server zu testen muss man eine cmd auf dem server, oder auf einem anderen client im gleichen Netzwerk, öffnen. Es st einfach wichtig das der dns server auf die IP von unserem server manuel geändert wird.
+
+Mit fiesem Befehl kann man einen normalen dns Request machen.
+```
+nslookup server.mydomain.local
+```
+
+Mit diesem Befehl kann man einen reverse lookup machen.
+```
+nslookup 192.168.1.10
+```
