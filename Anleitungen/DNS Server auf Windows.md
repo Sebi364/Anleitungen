@@ -70,7 +70,7 @@ Diese Anleitung nimmt an, dass du bereits eine VM mit Windows Server 2019 und ei
 3. Wähle die Option für eine `Primary Zone` und drücke `Next`
 	![img](/Dateien/Bilder/DNS_Windows/Konfiguration/add_zone_reverse/3.png)
 
-4. Wähle die Option für eine `IPvç reverse Lookup Zone` (Ausser du benutzt IPv6)
+4. Wähle die Option für eine `IPv4 reverse Lookup Zone` (Ausser du benutzt IPv6)
 	![img](/Dateien/Bilder/DNS_Windows/Konfiguration/add_zone_reverse/4.png)
 
 5. Gebe deine Network ID ein und drücke `Next`
@@ -85,7 +85,7 @@ Diese Anleitung nimmt an, dass du bereits eine VM mit Windows Server 2019 und ei
 8. Beende die Konfiguration indem du`Finish` drückst.
 	![img](/Dateien/Bilder/DNS_Windows/Konfiguration/add_zone_reverse/8.png)
 
-### Domäne hinzufügen
+### Host hinzufügen
 1. Füge zu deiner Zone einen neuen A Record hinzu
 	![img](/Dateien/Bilder/DNS_Windows/Testen/1.png)
 
@@ -104,8 +104,24 @@ Mit fiesem Befehl kann man einen normalen dns Request machen.
 ```
 nslookup server.mydomain.local
 ```
+Output:
+```
+Server: server.mydomain.local
+Adress: 192.168.1.10
+
+Server: server.mydomain.local
+Adress: 192.168.1.10
+```
 
 Mit diesem Befehl kann man einen reverse lookup machen.
 ```
 nslookup 192.168.1.10
+```
+Output:
+```
+Server: server.mydomain.local
+Adress: 192.168.1.10
+
+Server: server.mydomain.local
+Adress: 192.168.1.10
 ```

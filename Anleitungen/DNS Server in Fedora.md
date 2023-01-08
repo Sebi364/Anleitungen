@@ -109,12 +109,62 @@ Der dns Server kann mit dig getestet werden <br>
 Domain zu IP: <br>
 ```bash
 dig @192.168.1.10 server.mydomain.local
-dig @192.168.1.10 client.mydomain.local
 ```
+Output:
+```
+; <<>> DiG 9.16.33-RH <<>> @192.168.1.10 server.mydomain.local
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; WARNING: .local is reserved for Multicast DNS
+;; You are currently testing what happens when an mDNS query is leaked to DNS
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 37418
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+; COOKIE: d24ff102987442620100000063bacfa64e90f87e914d38a2 (good)
+;; QUESTION SECTION:
+;server.mydomain.local.		IN	A
+
+;; ANSWER SECTION:
+server.mydomain.local.	86400	IN	A	192.168.1.10
+
+;; Query time: 0 msec
+;; SERVER: 192.168.1.10#53(192.168.1.10)
+;; WHEN: Sun Jan 08 15:13:58 CET 2023
+;; MSG SIZE  rcvd: 94
+
+```
+
 IP zu Domain
 ```bash
-dig @192.168.1.10 -x 192.168.1.5
 dig @192.168.1.10 -x 192.168.1.10
+```
+
+Output:
+```
+; <<>> DiG 9.16.33-RH <<>> @192.168.1.10 192.168.1.10
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NXDOMAIN, id: 12719
+;; flags: qr rd ra ad; QUERY: 1, ANSWER: 0, AUTHORITY: 1, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+; COOKIE: b014cd4188b9dc230100000063bacfc300d2529435775517 (good)
+;; QUESTION SECTION:
+;192.168.1.10.			IN	A
+
+;; AUTHORITY SECTION:
+.			10800	IN	SOA	a.root-servers.net. nstld.verisign-grs.com. 2023010800 1800 900 604800 86400
+
+;; Query time: 144 msec
+;; SERVER: 192.168.1.10#53(192.168.1.10)
+;; WHEN: Sun Jan 08 15:14:27 CET 2023
+;; MSG SIZE  rcvd: 144
+
 ```
 
 ## (Bonus) DNS Betrieb mit Wireshark untersuchen
